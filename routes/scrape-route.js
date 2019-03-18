@@ -106,6 +106,56 @@ router.get("/sports", function(req, res) {
     });
   });
 
+  router.get("/politics", function(req, res) {
+    // First, we grab the body of the html with axios
+    axios.get("https://www.politico.com/politics").then(function(response) {
+     
+      var $ = cheerio.load(response.data);
+  
+     
+      $("div.content section article.headlines-latest ul li div.summary h3 a").each(function(i, element) {
+        
+        var pResult = {};
+  
+        pResult.title = $(this)
+          .text().trim();
+        pResult.link = $(this)
+          .attr("href");
+        pResult.category = "politics" 
+       console.log(pResult);
+        
+        db.Article.find({
+            title: pResult.title
+        }, function(err, data) {
+            // Log any errors if the server encounters one
+            if (err) {
+              console.log(err);
+            }
+            //checks to see if article is already in the database
+            //if it isnt then we add it
+            if (data.length === 0) {
+                 //Create a new Article using the `result` object built from scraping
+                 db.Article.create(pResult)
+                 .then(function(dbArticle) {
+                   // View the added result in the console
+                   console.log(dbArticle);
+                 })
+                 .catch(function(err) {
+                   // If an error occurred, log it
+                   console.log(err);
+                 }); 
+            }
+            //if the scraped article is in the database then we end the res
+            if (data.length !== 0) {
+                res.end();
+            }
+        });
+     });
+      // Send a message to the client
+      res.send("Politics Scrape Complete");
+    });
+  });
+
 
 
 module.exports = router;
