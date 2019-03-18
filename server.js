@@ -2,8 +2,7 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var path = require('path');
-var axios = require("axios");
-var cheerio = require("cheerio");
+
 
 // Require all models
 var db = require("./models");
@@ -24,12 +23,13 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Newsfeeder";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Routes
 app.use('/app/scrape', require('./routes/scrape-route'));
 app.use('/app/articles', require('./routes/article-route'));
+app.use('/app/users', require('./routes/users-route'));
 
 
 

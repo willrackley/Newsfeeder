@@ -3,16 +3,9 @@ body {
 }
 
 nav {
-    border-bottom: 1px solid #333333;
-    width: 100%;
-    background: #cccccc;
-    padding-top: 2px;
+    
 }
 
-nav ul {
-    list-style:none;
-    text-align: center;
-}
 
 #logo {
     font-size: 32px;
