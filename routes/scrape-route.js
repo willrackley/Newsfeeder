@@ -6,23 +6,24 @@ var router = express.Router();
 
 router.get("/sports", function(req, res) {
     // First, we grab the body of the html with axios
-    axios.get("https://www.cbssports.com/").then(function(response) {
+    axios.get("https://www.nytimes.com/section/sports").then(function(response) {
      
       var $ = cheerio.load(response.data);
   
      
-      $("div.top-marquee-side ul li a").each(function(i, element) {
+      $("div.css-13mho3u ol li ").each(function(i, element) {
         
         var result = {};
   
-        result.title = $(this)
-          .children("h3")
+        result.title = $(element).find("a").children("h2")
           .text().trim();
-        result.link = 'https://www.cbssports.com/' + $(this)
+        result.link =  'https://www.nytimes.com' + $(element).find("a")
           .attr("href");
+        result.summary = $(element).find("a").children("p")
+        .text().trim();
         result.category = "sports"
           
-        //console.log(result);
+        console.log(result);
         
         db.Article.find({
             title: result.title
@@ -63,14 +64,16 @@ router.get("/sports", function(req, res) {
       var $ = cheerio.load(response.data);
   
      
-      $("div.item-list ul li article h2 a").each(function(i, element) {
+      $("div.item-list ul li article").each(function(i, element) {
         
         var eResult = {};
   
-        eResult.title = $(this)
+        eResult.title = $(element).find("h2").children("a")
           .text().trim();
-        eResult.link = 'https://www.etonline.com' + $(this)
+        eResult.link = 'https://www.etonline.com' + $(element).find("h2").children("a")
           .attr("href");
+        eResult.summary = $(element).find("div.field-subhead")
+        .text().trim();
         eResult.category = "entertainment" 
        console.log(eResult);
         
@@ -113,15 +116,17 @@ router.get("/sports", function(req, res) {
       var $ = cheerio.load(response.data);
   
      
-      $("div.content section article.headlines-latest ul li div.summary h3 a").each(function(i, element) {
+      $("div.content section article.headlines-latest ul li div.summary").each(function(i, element) {
         
         var pResult = {};
   
-        pResult.title = $(this)
+        pResult.title = $(element).find("h3").children("a")
           .text().trim();
-        pResult.link = $(this)
+        pResult.link = $(element).find("h3").children("a")
           .attr("href");
+        pResult.summary = $(element).find("div.tease").children("p").text();
         pResult.category = "politics" 
+       
        console.log(pResult);
         
         db.Article.find({
