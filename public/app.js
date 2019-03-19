@@ -28,10 +28,3 @@ $.getJSON("/app/articles", function(data) {
     }
 });
 
-$('#signupBtn').on("click", function(){
-    if($('#signUpPasswordInput').val() !== $('#signUpPasswordInput2').val()) {
-        $('#passErrorDiv').text("passwords do not match");
-        $('#passErrorDiv').show(); 
-        return;
-    }
-});

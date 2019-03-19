@@ -21,22 +21,37 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item  mr-3 p-1">
-                            <a class="nav-link" href="/app/logout">LOG OUT</a>
+                            <a class="nav-link" href="/app/login">LOG IN</a>
                         </li>
-                        <!-- <li class="nav-item p-1 mr-3">
-                            <a class="nav-link" href="#" id="signUp" data-toggle="modal" data-target="#signUpModal">SIGN UP</a>
-                        </li> -->
                     </ul>
                 </div>
             </div>
         </nav>
 
-        
-        <div id='articles'>
-
+        <div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-4 col-sm-12"></div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="login-info-messages">
+                        <% include ../partials/messages %>
+                    </div>
+                    <h2 class="text-center">Log in</h2>
+                    <form class="text-center" id="" action="/app/login" method="POST">
+                        <div class="form-group">
+                            <label for="logUpInEmail"></label>
+                            <input type="email" name="email" class="form-control text-center" id="loginEmail" aria-describedby="emailHelp" placeholder="Email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signUpPassword"></label>
+                            <input type="password" name="password" class="form-control text-center" id="signUpPasswordInput" id="signUpPasswordInput"  placeholder="Password" required>
+                        </div>
+                        <div id="passErrorDiv"></div>
+                        <button type="submit" id="" value="Log In" class="btn btn-secondary mt-3 px-5"><h5 class="mt-1">LOG IN</h5></button>
+                    </form>
+                </div>
+                <div class="col-md-4 col-sm-12"></div>
+            </div>
         </div>
-
-
 
         <script type="text/javascript" src="/app.js"></script>
     </body>

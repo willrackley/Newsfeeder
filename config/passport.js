@@ -4,16 +4,15 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const db = require("../models");
 
+
 module.exports = function(passport) {
 	passport.use(new LocalStrategy({
 		usernameField: 'email',
 		passwordField: 'password'
 	}, (email, password, done) => {
 		db.User.findOne({
-			where: {
 				email: email
-			}
-		}).then(user => {
+			}).then(user => {
 			// If we don't find user by his email
 			if (!user) {
 				return done(null, false, {
@@ -42,12 +41,8 @@ module.exports = function(passport) {
     });
     
 	passport.deserializeUser(function(id, done) {
-		db.User.findByPk(id).then(function(user) {
-			if (user) {
-				done(null, user.get());
-			} else {
-				done(user.errors, null);
-			}
+		db.User.findById(id).then(function(err, user) {
+			done(user, null)
 		});
 	});
 };

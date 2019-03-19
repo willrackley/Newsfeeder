@@ -86,19 +86,6 @@ router.post("/sign-up", function(req, res) {
         });
     }
   });
-
-router.post('/login', function(req, res) {
-    passport.authenticate('local', function(err, user, info) {
-    
-        req.logIn(user, function(err) {
-            db.User.update({}, {
-                loggedIn: true
-            }).then(function(update) {
-                return res.redirect('/app/main');
-            });
-        });
-    })(req, res);
-});
   
 
 module.exports = router;
