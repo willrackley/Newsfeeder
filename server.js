@@ -30,6 +30,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 app.use('/app/scrape', require('./routes/scrape-route'));
 app.use('/app/articles', require('./routes/article-route'));
 app.use('/app/users', require('./routes/users-route'));
+app.use('/app', require('./routes/html-routes'));
 
 
 

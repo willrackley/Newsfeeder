@@ -15,6 +15,7 @@ router.get('/', function(req, res) {
 
 router.post("/added", function(req, res) {
     var user = req.body;
+    var messages = [];
 
     db.User.find({
         email: user.email
@@ -30,7 +31,9 @@ router.post("/added", function(req, res) {
              db.User.create(user)
             .then(function(dbUser) {
                 // If saved successfully, send the the new User document to the client
-                res.json(dbUser);
+                //redirect to login
+               res.json(dbUser);
+               res.end();
             })
             .catch(function(err) {
                 // If an error occurs, send the error to the client
@@ -39,10 +42,36 @@ router.post("/added", function(req, res) {
         }
         //if the scraped article is in the database then we end the res
         if (data.length !== 0) {
-            res.end();
-            console.log('email already registered')
+           
+            messages.push('That email is already in use');
+            return res.json(messages);
         }
     });
+  });
+
+  router.post('/login', function(req, res) {
+    var user = req.body;
+
+    console.log(user)
+
+    db.User.find({
+        email: user.email,
+        password: user.password
+    }, function(err, data) {
+        // Log any errors if the server encounters one
+        if (err) {
+          console.log(err);
+        }
+        //if the scraped article is in the database then we end the res
+        if (data.length !== 0) {
+            res.redirect('/app/main');
+            
+        }
+        if (data.length === 0) {
+            res.redirect('/app/login');
+        }
+    });
+
   });
   
 
