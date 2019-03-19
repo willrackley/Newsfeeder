@@ -2,6 +2,9 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var path = require('path');
+var passport = require('passport');
+var flash = require('connect-flash');
+var session = require('express-session');
 
 
 // Require all models
@@ -12,13 +15,39 @@ var PORT = process.env.PORT || 3000;
 // Initialize Express
 var app = express();
 
-// Configure middleware
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Express Sessions
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Setting up flash messages
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
+	res.locals.error = req.flash('error');
+	res.locals.table_number = req.flash('table_number');
+	next();
+  });
+
+// Passport config
+require('./config/passport')(passport);
+
 // Make public a static folder
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -47,39 +47,39 @@
                     </div>
                     <div class="modal-body">
                     <div class="info-messages"></div>
-                    <form class="text-center" id="sign-up" action="/app/users/added" method="POST">
+                    <form class="text-center" id="sign-up">
                             <div class="form-group">
                                 <label for="signUpName"></label>
-                                <input type="text" name="firstname" class="form-control text-center" id="signUpNameInput" placeholder="First name" required>
+                                <input type="text"  class="form-control text-center" id="signUpNameInput" placeholder="First name" >
                             </div>
                             <div class="form-group">
                                 <label for="signUpInEmail"></label>
-                                <input type="email" name="email" class="form-control text-center" id="signUpEmailInput" aria-describedby="emailHelp" placeholder="Email address" required>
+                                <input type="email"  class="form-control text-center" id="signUpEmailInput" aria-describedby="emailHelp" placeholder="Email address">
                             </div>
                             <div class="form-group">
                                 <label for="signUpPassword"></label>
-                                <input type="password" name="password" class="form-control text-center" id="signUpPasswordInput" id="signUpPasswordInput"  placeholder="Password" required>
+                                <input type="password"  class="form-control text-center" id="signUpPasswordInput"  placeholder="Password">
                             </div>
                             <div class="form-group">
                             <label for="signUpPassword2"></label>
-                            <input type="password" class="form-control text-center" id="signUpPasswordInput2" id="signUpPasswordInput2"  placeholder="Confirm Pass" required>
+                            <input type="password" class="form-control text-center"  id="signUpPasswordInput2"  placeholder="Confirm Pass">
                             <div id="passErrorDiv"></div>
                         </div>
-                            <button type="submit" id="signupBtn" class="btn btn-secondary mt-3 px-5"><h5 class="mt-1">SIGN UP</h5></button>
+                            <button type="submit" class="btn btn-secondary mt-3 px-5"><h5 class="mt-1">SIGN UP</h5></button>
                     </form>
                     </div>
                     <div class="modal-footer">
                     <span class="text-center w-100">Already have an account?</span>
-                    <span class="text-center w-100 text-decoration-none"><a href="/login" id="signUpLogInLink">LOG IN</a></span>
+                    <span class="text-center w-100 text-decoration-none"><a href="/app/login" id="signUpLogInLink">LOG IN</a></span>
                     </div>
                 </div>
             </div>
     </div>
 
         <!-- <form action="/app/users/added" method="post">
-            <input type="text" name ="email" placeholder="email" required>
-            <input type="password" name="password" placeholder="password" required>
-            <input type="password" name="password" placeholder="retype password" required>
+            <input type="text" name ="email" placeholder="email">
+            <input type="password" name="password" placeholder="password">
+            <input type="password" name="password" placeholder="retype password">
             <input type="submit">
           </form> -->
         <div id='articles'>
