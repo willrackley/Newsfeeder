@@ -1,9 +1,21 @@
-
-
-nav {
-    
+.jumbotron {
+    background-image: url(/images/letters.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; 
+    height: 500px;
 }
 
+nav {
+    background: #639ad5;
+}
+
+.navbar-brand h2 {
+    color: #ffffff;
+}
+
+.nav-item a {
+    color: #ffffff !important;
+}
 
 #logo {
     font-size: 32px;
