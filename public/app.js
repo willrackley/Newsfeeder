@@ -101,4 +101,52 @@ $(document).ready(function(){
             initializeRows(articles);
         });
     });
+
+    $(document).on('click', '#allBtn', function(){
+        $('#articlesHeader').text('All Articles')
+        $('#articles').empty()
+        $.get('/app/articles', function(data){
+            var articles = data;
+            initializeRows(articles);
+        });
+    });
+
+    $(document).on('click', '#sportsBtn', function(){
+        $('#articlesHeader').text('Sports News')
+        $('#articles').empty()
+        $.get('/app/articles', function(data){
+            var sportsArticles = data;
+            for(var i=0; i < sportsArticles.length; i++){
+                if(sportsArticles[i].category === "sports"){
+                    createNewRow(sportsArticles[i]);
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#entBtn', function(){
+        $('#articlesHeader').text('Entertainment News')
+        $('#articles').empty()
+        $.get('/app/articles', function(data){
+            var entArticles = data;
+            for(var i=0; i < entArticles.length; i++){
+                if(entArticles[i].category === "entertainment"){
+                    createNewRow(entArticles[i]);
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#politicsBtn', function(){
+        $('#articlesHeader').text('Political News')
+        $('#articles').empty()
+        $.get('/app/articles', function(data){
+            var polArticles = data;
+            for(var i=0; i < polArticles.length; i++){
+                if(polArticles[i].category === "politics"){
+                    createNewRow(polArticles[i]);
+                }
+            }
+        });
+    });
 });
