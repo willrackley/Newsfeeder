@@ -1,5 +1,4 @@
 $(document).ready(function(){
-   
 
     //submittion of new user into database
     $("#sign-up").submit(function(event) {
@@ -66,27 +65,25 @@ $(document).ready(function(){
         var categoryTitle = $('<div class="mt-1 font-weight-bold">');
         categoryTitle.text(articles.category);
         var cardBody = $('<div class="card-body">');
-        cardBody.text(articles.summary);
-        // var buttonDiv = $('<div>');
-        // buttonDiv.addClass("mt-2")
-        // var addBtn = $('<button>');
-        // addBtn.addClass("addBtn");
-        // addBtn.attr("itemName", menuItem.name);
-        // console.log("testing id " + menuItem.id)
-        // addBtn.attr("key", menuItem.id);
-        // addBtn.attr("itemPrice", menuItem.discount_price);
-        // var addSymbol = $('<i class="fas fa-plus">');
-        // addSymbol.addClass("p-2 text-dark");
-        // var input = $('<input type="number" id="itemAmountInput' + menuItem.id +  '"  class="mr-3 text-center" min="1" value="1" max="10">');
-        // addBtn.append(addSymbol);
-        // buttonDiv.append(input);
-        // buttonDiv.append(addBtn);
-        // cardBody.append(buttonDiv);
+        var summary = $('<div>');
+        summary.text(articles.summary);
+        var commentBtn = $('<button class="btn btn-secondary comment mt-3" id="' + articles._id + '">');
+        commentBtn.text('comment');
+        var inputDiv = $('<div class="commentDiv" id="input' + articles._id + '">');
+        var input = $('<textarea class="form-control mt-4" id="inputComment'+ articles._id+ '" >');
+        var submitInput = $('<button class="btn btn-secondary submitComment mt-2" key="'+articles._id+ '" >');
+        submitInput.text('Submit');
         headerLink.appendTo(cardHeader);
         categoryTitle.appendTo(cardHeader);
         cardHeader.appendTo(card);
+        summary.appendTo(cardBody);
+        input.appendTo(inputDiv);
+        submitInput.appendTo(inputDiv);
+        inputDiv.appendTo(cardBody);
+        commentBtn.appendTo(cardBody);
         cardBody.appendTo(card);
         $('#articles').append(card);
+        $('.commentDiv').hide();
     }
 
     //scrape all news as soon as page is opened
@@ -149,4 +146,19 @@ $(document).ready(function(){
             }
         });
     });
+
+    $(document).on('click', '.comment', function(){
+        var commentDivSelector = '#input' + this.id;
+        $(commentDivSelector).show();
+    });
+
+    $(document).on('click', '.submitComment', function(){
+        var inputSelector = '#inputComment' + $(this).attr("key");
+
+        var newComment = { body: $(inputSelector).val()}
+        
+        $.post("/app/comments/submit", newComment);
+    });
+
+
 });

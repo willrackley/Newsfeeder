@@ -4,6 +4,7 @@ var bcrypt = require('bcryptjs');
 var passport = require('passport');
 var router = express.Router();
 
+//finds all users
 router.get('/', function(req, res) {
     db.User.find({}, function(err, data) {
         if (err) {
@@ -13,6 +14,18 @@ router.get('/', function(req, res) {
         res.json(data);
         }
     });
+});
+
+router.get('/with-comments', function(req, res) {
+	db.User.find({})
+	.populate("Comment")
+	.then(function(data) {
+        res.json(data);
+        })
+	.catch(function(err) {
+		// If an error occurs, send it back to the client
+		res.json(err);
+	});
 });
 
 router.post("/sign-up", function(req, res) {

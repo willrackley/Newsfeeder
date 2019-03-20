@@ -38,11 +38,11 @@ module.exports = function(passport) {
 	
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
-    });
-    
-	passport.deserializeUser(function(id, done) {
-		db.User.findById(id).then(function(err, user) {
-			done(user, null)
-		});
 	});
+	
+	passport.deserializeUser(function(id, done) {
+				done(null, id)
+	});
+	
+	
 };

@@ -23,7 +23,7 @@ router.get("/sports", function(req, res) {
         .text().trim();
         result.category = "sports"
           
-        console.log(result);
+        //console.log(result);
         
         db.Article.find({
             title: result.title
@@ -127,7 +127,7 @@ router.get("/sports", function(req, res) {
         pResult.summary = $(element).find("div.tease").children("p").text();
         pResult.category = "politics" 
        
-       console.log(pResult);
+       //console.log(pResult);
         
         db.Article.find({
             title: pResult.title

@@ -25,8 +25,8 @@ app.use(express.json());
 // Express Sessions
 app.use(session({
 	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
+	resave: false,
+	saveUninitialized: false
 }));
 
 // Passport
@@ -61,6 +61,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 app.use('/app/scrape', require('./routes/scrape-route'));
 app.use('/app/articles', require('./routes/article-route'));
 app.use('/app/users', require('./routes/users-route'));
+app.use('/app/comments', require('./routes/comment-route'));
 app.use('/app', require('./routes/html-routes'));
 
 
