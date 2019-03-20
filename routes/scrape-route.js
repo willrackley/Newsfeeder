@@ -75,7 +75,7 @@ router.get("/sports", function(req, res) {
         eResult.summary = $(element).find("div.field-subhead")
         .text().trim();
         eResult.category = "entertainment" 
-       console.log(eResult);
+       //console.log(eResult);
         
         db.Article.find({
             title: eResult.title
