@@ -74,18 +74,15 @@ $(document).ready(function(){
         var input = $('<textarea class="form-control mt-4" id="inputComment'+ articles._id+ '" >');
         var submitInput = $('<button class="btn btn-secondary submitComment mt-2" key="'+articles._id+ '" >');
         submitInput.text('Submit');
-        var divPostedCom = $('<div class="border-top">');
-        console.log(articles)
+        var divPostedCom = $('<div class="border-top mt-4">');
+    
         $.get('/app/comments/', function(data){
-
             for(var i=0; i < data.length; i++){
-            for(var j=0; j < articles.comments.length; j++){
-                if(data[i]._id === articles.comments[j]){
-                    console.log(data[i].body);
-                    divPostedCom.append(data[i].body);
+                for(var j=0; j < articles.comments.length; j++){
+                    if(data[i]._id === articles.comments[j]){
+                        divPostedCom.append($('<div class="border mt-2 p-3 w-75 commentborder">'+data[i].user+':<br>'+ data[i].body +'</div>'));
+                    }
                 }
-               
-             }
             }
         })
        
@@ -174,8 +171,8 @@ $(document).ready(function(){
         
         var inputSelector = '#inputComment' + $(this).attr("key");
         commentDivSelector = '#input' + $(this).attr("key");
-        var newComment = { body: $(inputSelector).val(), article_id: $(this).attr("key")}
-        
+        var newComment = { body: $(inputSelector).val(), article_id: $(this).attr("key")};
+
         $.post("/app/comments/submit", newComment, function(data) {
             $(inputSelector).val('');
             $(commentDivSelector).hide();

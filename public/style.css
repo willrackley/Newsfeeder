@@ -20,3 +20,7 @@ nav {
 #logo {
     font-size: 32px;
 }
+
+.commentborder {
+    border-radius: 25px;
+}

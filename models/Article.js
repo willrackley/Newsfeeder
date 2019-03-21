@@ -31,11 +31,13 @@ var ArticleSchema = new Schema({
   // The ref property links the ObjectId to the Note model
   // This allows us to populate the Article with an associated Note
   comments: [
-    {
-    type: Schema.Types.ObjectId,
-    ref: "Comment"
-    }
-  ]
+      {
+        // Store ObjectIds in the array
+        type: Schema.Types.ObjectId,
+        // The ObjectIds will refer to the ids in the Note model
+        ref: "Comment"
+      }
+    ]
 });
 
 // This creates our model from the above schema, using mongoose's model method

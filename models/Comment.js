@@ -7,8 +7,13 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var CommentSchema = new Schema({
   // `body` is of type String
-  body: String
-});
+    body: {
+      type: String
+  },
+    user: {
+      type: String
+    }
+  });
 
 var Comment = mongoose.model("Comment", CommentSchema);
 
