@@ -74,6 +74,22 @@ $(document).ready(function(){
         var input = $('<textarea class="form-control mt-4" id="inputComment'+ articles._id+ '" >');
         var submitInput = $('<button class="btn btn-secondary submitComment mt-2" key="'+articles._id+ '" >');
         submitInput.text('Submit');
+        var divPostedCom = $('<div class="border-top">');
+        console.log(articles)
+        $.get('/app/comments/', function(data){
+
+            for(var i=0; i < data.length; i++){
+            for(var j=0; j < articles.comments.length; j++){
+                if(data[i]._id === articles.comments[j]){
+                    console.log(data[i].body);
+                    divPostedCom.append(data[i].body);
+                }
+               
+             }
+            }
+        })
+       
+
         headerLink.appendTo(cardHeader);
         categoryTitle.appendTo(cardHeader);
         cardHeader.appendTo(card);
@@ -82,6 +98,7 @@ $(document).ready(function(){
         submitInput.appendTo(inputDiv);
         inputDiv.appendTo(cardBody);
         commentBtn.appendTo(cardBody);
+        divPostedCom.appendTo(cardBody);
         cardBody.appendTo(card);
         $('#articles').append(card);
         $('.commentDiv').hide();
