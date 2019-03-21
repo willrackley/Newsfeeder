@@ -23,10 +23,6 @@ var UserSchema = new Schema({
       "Password should be longer."
     ]
     },
-    loggedIn: {
-      type: Boolean,
-      default: false
-    },
     userCreated: {
     type: Date,
     default: Date.now

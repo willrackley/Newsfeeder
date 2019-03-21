@@ -18,7 +18,7 @@ router.get('/login', function(req, res) {
 
 router.get('/main', isLogged, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/main.html"));
-    console.log(req.user);
+   
 });
 
 router.post('/login', 

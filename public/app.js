@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var commentDivSelector;
 
     //submittion of new user into database
     $("#sign-up").submit(function(event) {
@@ -148,16 +149,21 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.comment', function(){
-        var commentDivSelector = '#input' + this.id;
+        commentDivSelector = '#input' + this.id;
         $(commentDivSelector).show();
     });
 
     $(document).on('click', '.submitComment', function(){
-        var inputSelector = '#inputComment' + $(this).attr("key");
-
-        var newComment = { body: $(inputSelector).val()}
         
-        $.post("/app/comments/submit", newComment);
+        var inputSelector = '#inputComment' + $(this).attr("key");
+        commentDivSelector = '#input' + $(this).attr("key");
+        var newComment = { body: $(inputSelector).val(), article_id: $(this).attr("key")}
+        
+        $.post("/app/comments/submit", newComment, function(data) {
+            $(inputSelector).val('');
+            $(commentDivSelector).hide();
+        });
+        
     });
 
 

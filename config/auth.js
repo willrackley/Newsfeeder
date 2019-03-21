@@ -5,7 +5,6 @@ module.exports = {
     // Function to check is user access status and redirect
     isLogged: function(req, res, next) {
         if (req.isAuthenticated()) {
-            //res.redirect('/app/main')
             return next();
         } else {
             req.flash('error_msg', 'No access to this page!');
