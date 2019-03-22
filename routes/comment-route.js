@@ -23,7 +23,6 @@ router.post('/submit', function(req, res) {
     db.Comment.create(req.body)
     .then(function(dbComment) {
     commentId.push(dbComment._id);
-    console.log();
     return db.Article.findOneAndUpdate({ _id: req.body.article_id }, { $push: { comments: dbComment._id } }, { new: true });
     
     })

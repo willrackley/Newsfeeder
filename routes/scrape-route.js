@@ -5,6 +5,7 @@ var cheerio = require("cheerio");
 var router = express.Router();
 
 router.get("/sports", function(req, res) {
+  
     // First, we grab the body of the html with axios
     axios.get("https://www.nytimes.com/section/sports").then(function(response) {
      
@@ -14,14 +15,15 @@ router.get("/sports", function(req, res) {
       $("div.css-13mho3u ol li ").each(function(i, element) {
         
         var result = {};
-  
+
         result.title = $(element).find("a").children("h2")
           .text().trim();
         result.link =  'https://www.nytimes.com' + $(element).find("a")
           .attr("href");
         result.summary = $(element).find("a").children("p")
         .text().trim();
-        result.category = "sports"
+        result.category = "sports";
+        result.user = req.user.firstname;
           
         //console.log(result);
         
@@ -35,11 +37,13 @@ router.get("/sports", function(req, res) {
             //checks to see if article is already in the database
             //if it isnt then we add it
             if (data.length === 0) {
+            
+              
                  //Create a new Article using the `result` object built from scraping
                  db.Article.create(result)
                  .then(function(dbArticle) {
                    // View the added result in the console
-                   console.log(dbArticle);
+                   //console.log(dbArticle);
                  })
                  .catch(function(err) {
                    // If an error occurred, log it
@@ -74,7 +78,8 @@ router.get("/sports", function(req, res) {
           .attr("href");
         eResult.summary = $(element).find("div.field-subhead")
         .text().trim();
-        eResult.category = "entertainment" 
+        eResult.category = "entertainment";
+        eResult.user = req.user.firstname;
        //console.log(eResult);
         
         db.Article.find({
@@ -91,7 +96,7 @@ router.get("/sports", function(req, res) {
                  db.Article.create(eResult)
                  .then(function(dbArticle) {
                    // View the added result in the console
-                   console.log(dbArticle);
+                   //console.log(dbArticle);
                  })
                  .catch(function(err) {
                    // If an error occurred, log it
@@ -125,7 +130,8 @@ router.get("/sports", function(req, res) {
         pResult.link = $(element).find("h3").children("a")
           .attr("href");
         pResult.summary = $(element).find("div.tease").children("p").text();
-        pResult.category = "politics" 
+        pResult.category = "politics";
+        pResult.user = req.user.firstname; 
        
        //console.log(pResult);
         
@@ -143,7 +149,7 @@ router.get("/sports", function(req, res) {
                  db.Article.create(pResult)
                  .then(function(dbArticle) {
                    // View the added result in the console
-                   console.log(dbArticle);
+                   //console.log(dbArticle);
                  })
                  .catch(function(err) {
                    // If an error occurred, log it

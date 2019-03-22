@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var commentDivSelector;
-
+    //var divPostedCom;
+    $('#spinner').hide();
     //submittion of new user into database
     $("#sign-up").submit(function(event) {
         event.preventDefault();
@@ -28,8 +29,20 @@ $(document).ready(function(){
     //scrape all news categories
     $.get('/app/scrape/entertainment', function(data){});
     $.get('/app/scrape/politics', function(data){});
-    $.get('/app/scrape/sports', function(data){});
+    $.get('/app/scrape/sports', function(data){
+        $('#spinner').hide();
+        getAllStories();
+        
+    });
     
+    }
+    function getAllStories(){
+        $('#articlesHeader').text('All Articles')
+        $('#articles').empty();
+        $.get('/app/articles', function(data){
+            var articles = data;
+            initializeRows(articles);
+        });
     }
 
     function getTopStories(){
@@ -72,21 +85,20 @@ $(document).ready(function(){
         commentBtn.text('comment');
         var inputDiv = $('<div class="commentDiv" id="input' + articles._id + '">');
         var input = $('<textarea class="form-control mt-4" id="inputComment'+ articles._id+ '" >');
-        var submitInput = $('<button class="btn btn-secondary submitComment mt-2" key="'+articles._id+ '" >');
+        var submitInput = $('<button class="btn btn-secondary submitComment mt-2" key="'+articles._id+ '" user="'+ articles.user + '" >');
         submitInput.text('Submit');
-        var divPostedCom = $('<div class="border-top mt-4">');
+        var divPostedCom = $('<div class="border-top pt-3 mt-4" id="postComment' + articles._id + '" >');
     
         $.get('/app/comments/', function(data){
             for(var i=0; i < data.length; i++){
                 for(var j=0; j < articles.comments.length; j++){
                     if(data[i]._id === articles.comments[j]){
-                        divPostedCom.append($('<div class="border mt-2 p-3 w-75 commentborder">'+data[i].user+':<br>'+ data[i].body +'</div>'));
+                        divPostedCom.append($('<div class="border mt-2 p-3 w-75 commentborder"><div class="text-right"><button class="btn bg-secondary">x</button></div>'+data[i].user+':<br>'+ data[i].body +'</div>'));
                     }
                 }
             }
         })
        
-
         headerLink.appendTo(cardHeader);
         categoryTitle.appendTo(cardHeader);
         cardHeader.appendTo(card);
@@ -102,25 +114,18 @@ $(document).ready(function(){
     }
 
     //scrape all news as soon as page is opened
-    scrapeAllNews()
-    getTopStories();
     
-    $(document).on('click', '#allBtn', function(){
-        $('#articlesHeader').text('All Articles')
-        $('#articles').empty()
-        $.get('/app/articles', function(data){
-            var articles = data;
-            initializeRows(articles);
-        });
+
+
+    $(document).on('click', '#getBtn', function(){
+        $('#spinner').show();
+        scrapeAllNews()
+        //getTopStories();
     });
 
     $(document).on('click', '#allBtn', function(){
-        $('#articlesHeader').text('All Articles')
-        $('#articles').empty()
-        $.get('/app/articles', function(data){
-            var articles = data;
-            initializeRows(articles);
-        });
+        
+        getAllStories();
     });
 
     $(document).on('click', '#sportsBtn', function(){
@@ -171,11 +176,16 @@ $(document).ready(function(){
         
         var inputSelector = '#inputComment' + $(this).attr("key");
         commentDivSelector = '#input' + $(this).attr("key");
+        var user = $(this).attr("user");
         var newComment = { body: $(inputSelector).val(), article_id: $(this).attr("key")};
+        var postDivSelector = '#postComment' +  $(this).attr("key");
+
+         $(postDivSelector).append($('<div class="border mt-2 p-3 w-75 commentborder">'+ user +':<br>'+ $(inputSelector).val() +'</div>'));
 
         $.post("/app/comments/submit", newComment, function(data) {
             $(inputSelector).val('');
             $(commentDivSelector).hide();
+            //$('#articles').empty();
         });
         
     });
