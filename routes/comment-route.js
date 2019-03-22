@@ -18,7 +18,7 @@ router.get("/", function(req, res) {
 router.post('/submit', function(req, res) {
   var commentId = [];
   req.body.user = req.user.firstname;
-  console.log(req.body.user);
+  req.body.userId = req.user.id
 
     db.Comment.create(req.body)
     .then(function(dbComment) {
@@ -35,6 +35,26 @@ router.post('/submit', function(req, res) {
       res.json(err);
     });
 })
+
+router.get('/my-comments', function(req, res) {
+  
+  db.Comment.find({ userId: req.user.id}, function(err, dbComment) {
+    if (err)
+        res.send(err);
+    else
+        res.json(dbComment);
+  });
+});
+
+//route to delete comments
+router.delete('/delete/:id', function(req, res) {
+  db.Comment.findByIdAndRemove({ _id: req.params.id}, function(err) {
+    if (err)
+        res.send(err);
+    else
+        res.json("delete");
+  });
+});
 
 
 module.exports = router;

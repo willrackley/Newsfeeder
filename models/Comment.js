@@ -12,6 +12,9 @@ var CommentSchema = new Schema({
   },
     user: {
       type: String
+    },
+    userId: {
+      type: String
     }
   });
 

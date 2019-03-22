@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var commentDivSelector;
-    //var divPostedCom;
+    var realtimeComCtr = 0;
     $('#spinner').hide();
     //submittion of new user into database
     $("#sign-up").submit(function(event) {
@@ -93,7 +93,8 @@ $(document).ready(function(){
             for(var i=0; i < data.length; i++){
                 for(var j=0; j < articles.comments.length; j++){
                     if(data[i]._id === articles.comments[j]){
-                        divPostedCom.append($('<div class="border mt-2 p-3 w-75 commentborder"><div class="text-right"><button class="btn bg-secondary">x</button></div>'+data[i].user+':<br>'+ data[i].body +'</div>'));
+                        divPostedCom.append($('<div class="border mt-2 p-3 w-75 commentborder" id="deleteBox'+data[i]._id+'"><div class="text-right"><button class="btn deleteBtn bg-secondary" id="'+data[i]._id+'">x</button></div>'+data[i].user+':<br>'+ data[i].body +'</div>'));
+
                     }
                 }
             }
@@ -180,15 +181,30 @@ $(document).ready(function(){
         var newComment = { body: $(inputSelector).val(), article_id: $(this).attr("key")};
         var postDivSelector = '#postComment' +  $(this).attr("key");
 
-         $(postDivSelector).append($('<div class="border mt-2 p-3 w-75 commentborder">'+ user +':<br>'+ $(inputSelector).val() +'</div>'));
 
         $.post("/app/comments/submit", newComment, function(data) {
             $(inputSelector).val('');
             $(commentDivSelector).hide();
-            //$('#articles').empty();
         });
-        
+
+        $.get('/app/comments/my-comments', function(comments){
+            //grab the latest comment to display right away in the DOM
+            var index = comments.length - 1;
+            $(postDivSelector).append($('<div class="border mt-2 p-3 w-75 commentborder" id="deleteBox'+ comments[index]._id +'"><div class="text-right"><button class="btn deleteBtn bg-secondary" id="'+ comments[index]._id +'">x</button></div>'+ comments[index].user +':<br>'+ comments[index].body +'</div>'));
+        })
     });
 
+    $(document).on('click', '.deleteBtn', function(){
+        var deleteSelector = $(this).attr('id');
+        var deleteCommentBox = '#deleteBox' + $(this).attr('id');
+        console.log(deleteCommentBox)
+        
+        $.ajax({
+            type: "DELETE",
+            url: "/app/comments/delete/" + deleteSelector
+        });
+
+        $(deleteCommentBox).remove();
+    });
 
 });
