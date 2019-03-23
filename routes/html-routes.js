@@ -5,12 +5,13 @@ var passport = require('passport'), LocalStrategy = require('passport-local').St
 const {isLogged } = require('../config/auth');
 var router = express.Router();
 
-router.get('/', isLogged, (req, res) => {
+router.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-router.get('/app', isLogged, (req, res) => {
-    // This route is secured, used only to redirect user. (isLogged)
-});
+// router.get('/app', isLogged, (req, res) => {
+//     // This route is secured, used only to redirect user. (isLogged)
+// });
 
 router.get('/login', function(req, res) {
     res.render('pages/login');
@@ -22,8 +23,8 @@ router.get('/main', isLogged, function(req, res) {
 });
 
 router.post('/login', 
-    passport.authenticate('local', { successRedirect: '/app/main',
-        failureRedirect: '/app/login',
+    passport.authenticate('local', { successRedirect: '/main',
+        failureRedirect: '/login',
         failureFlash: true 
     })
 ); 
@@ -33,7 +34,7 @@ router.post('/login',
 router.get('/logout', function(req, res) {
 	req.logout();
 	req.flash('success_msg', 'You are successfully logged out');
-	res.redirect('/app/login');
+	res.redirect('/login');
 });
 
 

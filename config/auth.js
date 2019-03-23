@@ -8,7 +8,7 @@ module.exports = {
             return next();
         } else {
             req.flash('error_msg', 'No access to this page!');
-            res.redirect('/app/login');
+            res.redirect('/login');
         }
     }
 };
