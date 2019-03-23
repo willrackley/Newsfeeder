@@ -86,6 +86,7 @@ nav {
 
 .card-header {
     background: #ffffff !important;
+    border-bottom: 2px solid #3a5e83 !important;
 }
 
 .addedComments {
