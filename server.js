@@ -6,18 +6,17 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 
-
-// Require all models
-var db = require("./models/index");
+// Initialize Express
+var app = express();
 
 var PORT = process.env.PORT || 3000;
+
+// Require all models
+var db = require("./models");
 
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Newsfeeder";
 mongoose.connect(MONGODB_URI);
-
-// Initialize Express
-var app = express();
 
 
 // Use morgan logger for logging requests
@@ -63,8 +62,6 @@ app.use('/app/articles', require('./routes/article-route'));
 app.use('/app/users', require('./routes/users-route'));
 app.use('/app/comments', require('./routes/comment-route'));
 app.use('/', require('./routes/html-routes'));
-
-
 
 
 // Start the server
