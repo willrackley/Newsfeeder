@@ -184,6 +184,7 @@ $(document).ready(function(){
 
     });
 
+    //click event to submit a comment to an article
     $(document).on('click', '.submitComment', function(){
         
         var inputSelector = '#inputComment' + $(this).attr("key");
@@ -219,5 +220,11 @@ $(document).ready(function(){
 
         $(deleteCommentBox).remove();
     });
+
+    //to add fav section, make a new model 'fav' with the same properties as article
+    //make a route to find article by an id
+    //make a fav button with the aricle id as the id
+    // on click get the articl by button id and then post to fav route 
+    //voila
 
 });
