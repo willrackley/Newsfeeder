@@ -9,9 +9,10 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-// router.get('/app', isLogged, (req, res) => {
-//     // This route is secured, used only to redirect user. (isLogged)
-// });
+router.get('/app', isLogged, (req, res) => {
+    // This route is secured, used only to redirect user. (isLogged)
+    
+});
 
 router.get('/login', function(req, res) {
     res.render('pages/login');
@@ -28,8 +29,6 @@ router.post('/login',
         failureFlash: true 
     })
 ); 
-
-
 
 router.get('/logout', function(req, res) {
 	req.logout();
