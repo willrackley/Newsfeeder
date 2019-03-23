@@ -23,30 +23,32 @@
                         <li class="nav-item  mr-3 p-1">
                             <a class="nav-link" href="/app/logout">LOG OUT</a>
                         </li>
-                        <!-- <li class="nav-item p-1 mr-3">
-                            <a class="nav-link" href="#" id="signUp" data-toggle="modal" data-target="#signUpModal">SIGN UP</a>
-                        </li> -->
                     </ul>
                 </div>
             </div>
         </nav>
 
         <div class="container mb-5">
-            <div>
-                <button class="btn btn-secondary m-1" id="getBtn"> <span class="spinner-border spinner-border-sm" role="status" id="spinner" aria-hidden="true"></span>&nbsp;Get Articles</button>
-                <button class="btn btn-secondary m-1" id="allBtn">All Articles</button>
-                <button class="btn btn-secondary m-1" id="sportsBtn">Sports</buttton>
-                <button class="btn btn-secondary m-1" id="entBtn" >Entertainment</button>
-                <button class="btn btn-secondary m-1" id="politicsBtn">Politics</button>
+            <div class="text-center">
+                <button class="btn  m-1 mainBtns text-white" id="getBtn"> <span class="spinner-border spinner-border-sm" role="status" id="spinner" aria-hidden="true"></span>&nbsp;Get Articles</button>
+                <button class="btn  m-1 mainBtns text-white" id="allBtn">All Articles</button>
+                <button class="btn  m-1 mainBtns text-white" id="sportsBtn">Sports</buttton>
+                <button class="btn  m-1 mainBtns text-white" id="entBtn" >Entertainment</button>
+                <button class="btn  m-1 mainBtns text-white" id="politicsBtn">Politics</button>
             </div>
         </div>
 
-        <div class="container">
-            <div class="mb-3"><h2 id="articlesHeader"></h2></div>
-            <div id='articles'>
+        <div class="container mb-5 artSection">
+            <div class="mb-3 py-3 pt-3"><h2 id="articlesHeader"></h2></div>
+            <div class="text-center" id='articles'>
 
             </div>
         </div>
+
+        <footer class="page-footer font-small fixed-bottom" id="mainFooter">
+                <!-- Copyright -->
+                <div class="footer-copyright text-center text-white py-3">© 2019 Copyright</div>
+        </footer>
 
 
         <script type="text/javascript" src="/app.js"></script>

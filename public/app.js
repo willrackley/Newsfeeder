@@ -2,6 +2,7 @@ $(document).ready(function(){
     var commentDivSelector;
     var realtimeComCtr = 0;
     $('#spinner').hide();
+
     //submittion of new user into database
     $("#sign-up").submit(function(event) {
         event.preventDefault();
@@ -31,11 +32,22 @@ $(document).ready(function(){
     $.get('/app/scrape/politics', function(data){});
     $.get('/app/scrape/sports', function(data){
         $('#spinner').hide();
-        getAllStories();
-        
+        getAllStories();   
     });
-    
     }
+
+    function initialDisplay() {
+        $.get('/app/articles', function(data){
+            var articles = data;
+            if(data.length === 0){
+                $('#articles').append("<h2>No articles yet, click 'Get Articles' to start browsing.</h2>");
+            } else {
+                getAllStories();
+            }
+            //initializeRows(articles);
+        });
+    }
+    
     function getAllStories(){
         $('#articlesHeader').text('All Articles')
         $('#articles').empty();
@@ -72,16 +84,16 @@ $(document).ready(function(){
     }
 
     function createNewRow(articles){
-        var card = $('<div class="card mb-1">');
+        var card = $('<div class="card mb-5">');
         var cardHeader = $('<div class="card-header w-100">');
         var headerLink = $('<a href="' + articles.link + '" class="font-weight-bold h4" target="_blank">')
         headerLink.text(articles.title);
         var categoryTitle = $('<div class="mt-1 font-weight-bold">');
         categoryTitle.text(articles.category);
-        var cardBody = $('<div class="card-body">');
-        var summary = $('<div>');
+        var cardBody = $('<div class="card-body text-left ">');
+        var summary = $('<div class="text-left">');
         summary.text(articles.summary);
-        var commentBtn = $('<button class="btn btn-secondary comment mt-3" id="' + articles._id + '">');
+        var commentBtn = $('<button class="btn text-white comment mt-5" id="' + articles._id + '">');
         commentBtn.text('comment');
         var inputDiv = $('<div class="commentDiv" id="input' + articles._id + '">');
         var input = $('<textarea class="form-control mt-4" id="inputComment'+ articles._id+ '" >');
@@ -93,8 +105,7 @@ $(document).ready(function(){
             for(var i=0; i < data.length; i++){
                 for(var j=0; j < articles.comments.length; j++){
                     if(data[i]._id === articles.comments[j]){
-                        divPostedCom.append($('<div class="border mt-2 p-3 w-75 commentborder" id="deleteBox'+data[i]._id+'"><div class="text-right"><button class="btn deleteBtn bg-secondary" id="'+data[i]._id+'">x</button></div>'+data[i].user+':<br>'+ data[i].body +'</div>'));
-
+                        divPostedCom.append($('<div class="border mt-2 p-3 w-75 commentborder addedComments" id="deleteBox'+data[i]._id+'"><div class="text-right"><button class="btn deleteBtn text-white" id="'+data[i]._id+'">x</button></div>'+data[i].user+':<br>'+ data[i].body +'</div>'));
                     }
                 }
             }
@@ -114,14 +125,11 @@ $(document).ready(function(){
         $('.commentDiv').hide();
     }
 
-    //scrape all news as soon as page is opened
-    
-
+   initialDisplay()
 
     $(document).on('click', '#getBtn', function(){
         $('#spinner').show();
         scrapeAllNews()
-        //getTopStories();
     });
 
     $(document).on('click', '#allBtn', function(){
@@ -170,17 +178,22 @@ $(document).ready(function(){
 
     $(document).on('click', '.comment', function(){
         commentDivSelector = '#input' + this.id;
+        var selector = '#' + $(this).attr('id');
         $(commentDivSelector).show();
+        $(selector).hide();
+
     });
 
     $(document).on('click', '.submitComment', function(){
         
         var inputSelector = '#inputComment' + $(this).attr("key");
         commentDivSelector = '#input' + $(this).attr("key");
+        var commentBtnSelector = '#' + $(this).attr("key");
         var user = $(this).attr("user");
         var newComment = { body: $(inputSelector).val(), article_id: $(this).attr("key")};
         var postDivSelector = '#postComment' +  $(this).attr("key");
 
+        $(commentBtnSelector).show();
 
         $.post("/app/comments/submit", newComment, function(data) {
             $(inputSelector).val('');
@@ -190,7 +203,7 @@ $(document).ready(function(){
         $.get('/app/comments/my-comments', function(comments){
             //grab the latest comment to display right away in the DOM
             var index = comments.length - 1;
-            $(postDivSelector).append($('<div class="border mt-2 p-3 w-75 commentborder" id="deleteBox'+ comments[index]._id +'"><div class="text-right"><button class="btn deleteBtn bg-secondary" id="'+ comments[index]._id +'">x</button></div>'+ comments[index].user +':<br>'+ comments[index].body +'</div>'));
+            $(postDivSelector).append($('<div class="border mt-2 p-3 w-75 commentborder addedComments" id="deleteBox'+ comments[index]._id +'"><div class="text-right"><button class="btn deleteBtn text-white" id="'+ comments[index]._id +'">x</button></div>'+ comments[index].user +':<br>'+ comments[index].body +'</div>'));
         })
     });
 

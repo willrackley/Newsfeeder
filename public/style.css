@@ -60,7 +60,49 @@ nav {
     background: #649dd7; 
 }
 
+.mainBtns {
+    background: #4978a7 !important; 
+}
+
+.mainBtns:hover  {
+    background: #2d4a67 !important; 
+}
+
+.artSection {
+    background: #e3e3e3;
+}
+
+.comment {
+    background: #3a5e83 !important;
+}
+
+.deleteBtn {
+    background: #3a5e83 !important;
+}
+
+.card {
+    border: 2px solid #3a5e83 !important;
+}
+
+.card-header {
+    background: #ffffff !important;
+}
+
+.addedComments {
+    background: #b2becb66 !important;
+}
+
+.card a:hover {
+    font-size: 24px;
+    color: #171717;
+    text-decoration: none;
+    transition: .4s ease;
+}
 
 footer {
     background: #3a5e83; 
+}
+
+footer #mainFooter{
+    height: 20px; 
 }
