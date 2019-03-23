@@ -6,5 +6,5 @@ module.exports = {
   // //User: require("./User"),
   // Article: require("./Article"),
   // Comment: require("./Comment"),
-  User, Article, Comment
+   Article, Comment
 };
