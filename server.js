@@ -12,6 +12,10 @@ var db = require("./models");
 
 var PORT = process.env.PORT || 3000;
 
+// Connect to the Mongo DB
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Newsfeeder";
+mongoose.connect(MONGODB_URI);
+
 // Initialize Express
 var app = express();
 
@@ -60,9 +64,7 @@ app.use('/app/users', require('./routes/users-route'));
 app.use('/app/comments', require('./routes/comment-route'));
 app.use('/', require('./routes/html-routes'));
 
-// Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Newsfeeder";
-mongoose.connect(MONGODB_URI);
+
 
 
 // Start the server
