@@ -53,10 +53,6 @@ require('./config/passport')(passport);
 // Make public a static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Newsfeeder";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
-
 // Routes
 app.use('/app/scrape', require('./routes/scrape-route'));
 app.use('/app/articles', require('./routes/article-route'));
@@ -64,6 +60,9 @@ app.use('/app/users', require('./routes/users-route'));
 app.use('/app/comments', require('./routes/comment-route'));
 app.use('/app', require('./routes/html-routes'));
 
+// Connect to the Mongo DB
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Newsfeeder";
+mongoose.connect(MONGODB_URI);
 
 
 // Start the server
