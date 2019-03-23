@@ -2,7 +2,7 @@
 
 Newsfeeder is a web application that allows users to view articles from several different news outlets. Users are also able to leave comments on articles.
 
-![Home Page](/public/images/newsfeeder.png)
+![Home Page](./public/images/newsfeeeder.png)
 
 ## How it works 
 
