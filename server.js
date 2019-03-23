@@ -8,7 +8,7 @@ var session = require('express-session');
 
 
 // Require all models
-var db = require("./models");
+var db = require("./models/index");
 
 var PORT = process.env.PORT || 3000;
 
