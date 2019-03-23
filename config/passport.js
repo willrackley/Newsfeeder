@@ -1,5 +1,5 @@
 // Login logic to check users email and password
-// If we have a match send user to his dashboard
+// If we have a match send user to his the main log in page
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const db = require("../models");

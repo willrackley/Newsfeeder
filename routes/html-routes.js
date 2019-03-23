@@ -10,8 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/app', isLogged, (req, res) => {
-    // This route is secured, used only to redirect user. (isLogged)
-    
+    // This route is secured, used only to redirect user. (isLogged) 
 });
 
 router.get('/login', function(req, res) {

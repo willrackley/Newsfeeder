@@ -24,8 +24,6 @@ router.get("/sports", function(req, res) {
         .text().trim();
         result.category = "sports";
         result.user = req.user.firstname;
-          
-        //console.log(result);
         
         db.Article.find({
             title: result.title
@@ -37,13 +35,9 @@ router.get("/sports", function(req, res) {
             //checks to see if article is already in the database
             //if it isnt then we add it
             if (data.length === 0) {
-            
-              
                  //Create a new Article using the `result` object built from scraping
                  db.Article.create(result)
                  .then(function(dbArticle) {
-                   // View the added result in the console
-                   //console.log(dbArticle);
                  })
                  .catch(function(err) {
                    // If an error occurred, log it
@@ -66,7 +60,6 @@ router.get("/sports", function(req, res) {
     axios.get("https://www.etonline.com/news").then(function(response) {
      
       var $ = cheerio.load(response.data);
-  
      
       $("div.item-list ul li article").each(function(i, element) {
         
@@ -80,7 +73,6 @@ router.get("/sports", function(req, res) {
         .text().trim();
         eResult.category = "entertainment";
         eResult.user = req.user.firstname;
-       //console.log(eResult);
         
         db.Article.find({
             title: eResult.title
@@ -95,8 +87,6 @@ router.get("/sports", function(req, res) {
                  //Create a new Article using the `result` object built from scraping
                  db.Article.create(eResult)
                  .then(function(dbArticle) {
-                   // View the added result in the console
-                   //console.log(dbArticle);
                  })
                  .catch(function(err) {
                    // If an error occurred, log it
@@ -120,7 +110,6 @@ router.get("/sports", function(req, res) {
      
       var $ = cheerio.load(response.data);
   
-     
       $("div.content section article.headlines-latest ul li div.summary").each(function(i, element) {
         
         var pResult = {};
@@ -132,8 +121,6 @@ router.get("/sports", function(req, res) {
         pResult.summary = $(element).find("div.tease").children("p").text();
         pResult.category = "politics";
         pResult.user = req.user.firstname; 
-       
-       //console.log(pResult);
         
         db.Article.find({
             title: pResult.title
@@ -148,8 +135,6 @@ router.get("/sports", function(req, res) {
                  //Create a new Article using the `result` object built from scraping
                  db.Article.create(pResult)
                  .then(function(dbArticle) {
-                   // View the added result in the console
-                   //console.log(dbArticle);
                  })
                  .catch(function(err) {
                    // If an error occurred, log it

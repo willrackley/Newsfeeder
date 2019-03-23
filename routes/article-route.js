@@ -2,6 +2,7 @@ var express = require('express');
 var db = require("../models");
 var router = express.Router();
 
+//getting all articles in the database
 router.get("/", function(req, res) {
     db.Article.find().sort({ "title": 1 }).exec(function(error, data) {
         // Log any errors if the server encounters one
@@ -15,6 +16,7 @@ router.get("/", function(req, res) {
       });
 });
 
+//getting all the entertainment articles
 router.get('/top-entertainment', function(req, res) {
     db.Article.findOne({
         "category": "entertainment"
@@ -28,6 +30,7 @@ router.get('/top-entertainment', function(req, res) {
     });
 });
 
+//getting all sports articles
 router.get('/top-sports', function(req, res) {
     db.Article.findOne({
         "category": "sports"
@@ -41,6 +44,7 @@ router.get('/top-sports', function(req, res) {
     });
 });
 
+//getting all politic articles
 router.get('/top-politics', function(req, res) {
     db.Article.findOne({
         "category": "politics"

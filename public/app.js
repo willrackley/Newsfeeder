@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var commentDivSelector;
-    var realtimeComCtr = 0;
+    
     $('#spinner').hide();
 
     //submittion of new user into database
@@ -44,7 +44,6 @@ $(document).ready(function(){
             } else {
                 getAllStories();
             }
-            //initializeRows(articles);
         });
     }
     
@@ -54,22 +53,6 @@ $(document).ready(function(){
         $.get('/app/articles', function(data){
             var articles = data;
             initializeRows(articles);
-        });
-    }
-
-    function getTopStories(){
-        $('#articlesHeader').text('Top Stories')
-        $.get('/app/articles/top-entertainment', function(data){
-            var ent = data;
-            createNewRow(ent);
-        });
-        $.get('/app/articles/top-sports', function(data){
-            var sports = data;
-            createNewRow(sports);
-        });
-        $.get('/app/articles/top-politics', function(data){
-            var politics = data;
-            createNewRow(politics);
         });
     }
 
@@ -181,7 +164,6 @@ $(document).ready(function(){
         var selector = '#' + $(this).attr('id');
         $(commentDivSelector).show();
         $(selector).hide();
-
     });
 
     //click event to submit a comment to an article
