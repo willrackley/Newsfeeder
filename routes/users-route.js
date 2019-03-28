@@ -38,12 +38,12 @@ router.post("/sign-up", function(req, res) {
 	var messages = [];
 
     // If statement to check do we have 4 input values
-	if (!firstname || !email || !password || !password2) {
-		messages.push({
-			msg: 'Please enter all fields',
-			type: 'warning'
-		});
-	}
+	// if (!firstname || !email || !password || !password2) {
+	// 	messages.push({
+	// 		msg: 'Please enter all fields',
+	// 		type: 'warning'
+	// 	});
+	// }
 	// If statement to check does password matches confirm password field
 	if (password !== password2) {
 		messages.push({
